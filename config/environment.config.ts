@@ -18,6 +18,7 @@ export const envConfig = {
 
   // Test settings
   defaultTimeout: parseInt(process.env.DEFAULT_TIMEOUT || '30000'),
+  demoTimeout: parseInt(process.env.DEMO_TIMEOUT || '120000'), // Extended timeout for demo environment
   navigationTimeout: parseInt(process.env.NAVIGATION_TIMEOUT || '60000'),
   retryAttempts: parseInt(process.env.RETRY_ATTEMPTS || '0'),
 

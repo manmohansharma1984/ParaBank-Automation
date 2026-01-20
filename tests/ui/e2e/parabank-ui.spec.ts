@@ -38,7 +38,7 @@ test.describe('ParaBank E2E Tests', () => {
   });
 
   test('Complete ParaBank user journey with API validation', async ({ page, playwright }) => {
-    test.setTimeout(120_000); // Increase timeout to 2 minutes for demo environment
+    test.setTimeout(envConfig.demoTimeout); // Extended timeout for demo environment stability
 
     let newAccountId: string;
     let paymentAmount: string;
