@@ -22,9 +22,12 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                sh 'npm test'
-            }
-        }
+                sh '''
+                    export PW_HTML_REPORT=1
+                     npm test
+                   '''
+    }
+}
     }
 
     post {
