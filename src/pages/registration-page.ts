@@ -72,7 +72,6 @@ export class RegistrationPage extends BasePage {
 
   async submitRegistration(): Promise<void> {
     await this.click(this.registerButton);
-    await this.page.waitForLoadState('networkidle');
   }
 
   async registerUser(userData: {

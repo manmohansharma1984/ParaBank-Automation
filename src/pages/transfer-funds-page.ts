@@ -67,7 +67,6 @@ export class TransferFundsPage extends BasePage {
     }
 
     await this.transferButton.click();
-    await this.page.waitForLoadState('networkidle');
   }
 
   /**

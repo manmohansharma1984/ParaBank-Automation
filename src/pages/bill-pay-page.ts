@@ -75,8 +75,6 @@ export class BillPayPage extends BasePage {
 
     await this.sendPaymentButton.waitFor({ state: 'visible' });
     await this.sendPaymentButton.click();
-
-    await this.page.waitForLoadState('networkidle');
   }
 
   /**

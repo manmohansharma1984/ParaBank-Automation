@@ -23,7 +23,6 @@ export class LoginPage extends BasePage {
     await this.fillField(this.usernameInput, username);
     await this.fillField(this.passwordInput, password);
     await this.click(this.loginButton);
-    await this.page.waitForLoadState('networkidle');
   }
 
   async verifyLoginFailed(): Promise<void> {
