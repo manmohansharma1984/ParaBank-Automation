@@ -201,12 +201,16 @@ test.describe('ParaBank E2E Tests', () => {
         expect(Array.isArray(response.transactions)).toBe(true);
 
         console.log('API validation completed successfully');
-      } catch (apiError: any) {
+      } catch (apiError: unknown) {
         clearTimeout(timeoutId);
-        if (apiError.name === 'AbortError') {
-          console.log('API validation timed out after 8 seconds');
+        if (apiError instanceof Error) {
+          if (apiError.name === 'AbortError') {
+            console.log('API validation timed out after 8 seconds');
+          } else {
+            console.log(`API validation failed: ${apiError.message}`);
+          }
         } else {
-          console.log(`API validation failed: ${apiError.message}`);
+          console.log(`API validation failed: ${String(apiError)}`);
         }
         console.log('This is expected in demo environment - UI functionality validated above');
       }
