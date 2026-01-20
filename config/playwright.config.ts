@@ -31,4 +31,5 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
+  outputDir: 'test-results',
 })

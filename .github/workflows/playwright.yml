@@ -35,7 +35,7 @@ jobs:
         run: npm run lint
 
       - name: Run tests
-        run: npm run test:ui
+        run: npx playwright test --workers=1 --output=test-results
 
       - name: Upload Playwright HTML report
         if: always()
