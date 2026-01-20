@@ -14,15 +14,17 @@ export default defineConfig({
 
   reporter: [
     ['list'],
-    ['html', { outputFolder: 'playwright-report', open: 'never' }], 
+    ['html', { outputFolder: 'playwright-report', open: 'never' }],
   ],
 
 
   use: {
     baseURL: envConfig.baseUrl,
-    trace: envConfig.traceOnRetry ? 'on-first-retry' : 'retain-on-failure',
-    screenshot: envConfig.screenshotOnFailure ? 'only-on-failure' : 'off',
+    trace: 'on',
+    screenshot: 'on',
+    video: 'retain-on-failure'
   },
+  outputDir: 'test-results',
 
   projects: [
     {
@@ -31,5 +33,4 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-  outputDir: 'test-results',
-})
+});
