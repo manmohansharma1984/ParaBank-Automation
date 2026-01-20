@@ -1,6 +1,6 @@
 # ParaBank Test Automation
 
-A focused Playwright test automation framework demonstrating UI and API testing for the ParaBank application.
+Test automation framework for the ParaBank application using Playwright and TypeScript. Includes both UI and API test coverage.
 
 ## Quick Start
 
@@ -33,34 +33,36 @@ npm run test      # Run all tests
 └── README.md                      # This documentation
 ```
 
-## Features
-
-- **Page Object Model** for maintainable UI tests
-- **API Testing** with defensive validation
-- **TypeScript** for type safety and IntelliSense
-- **Parallel Test Execution** for faster feedback
-- **Comprehensive Reporting** with HTML reports
-- **CI/CD Integration** (GitHub Actions + Jenkins)
-- **Code Quality** with ESLint and Prettier
-
 ## Test Coverage
 
-- **UI Tests**: User registration flow with ParaBank
-- **API Tests**: Transaction search and validation endpoints
-- **Cross-browser**: Chromium support (Firefox/WebKit configurable)
+### UI Tests
+- User registration with form validation
+- Login verification after registration
+- Navigation between application sections
+- Account overview display
+- Opening new savings accounts
+- Transferring funds between accounts
+- Bill payment processing
+
+### API Tests
+- Transaction search by amount
+- Transaction response validation
+- Empty result handling
+- Error response handling
+- JSON schema validation
 
 ## CI/CD Integration
 
 ### GitHub Actions
-- **Automated**: Runs on push/PR to main/develop branches
-- **Manual**: Can be triggered via GitHub UI
-- **Reporting**: Uploads test artifacts and reports
+- Runs automatically on pushes and pull requests to main/develop branches
+- Can be triggered manually through the GitHub UI
+- Uploads test reports and artifacts for review
 
 ### Jenkins
-- **Pipeline**: Complete CI/CD pipeline with stages
-- **Reporting**: HTML reports and JUnit XML results
-- **Documentation**: See `docs/jenkins-integration.md`
+- Pipeline with dependency installation, test execution, and reporting stages
+- Generates HTML reports and JUnit XML results
+- Documentation available in docs/jenkins-integration.md
 
-## Known Limitations
+## Notes
 
-ParaBank's shared environment may cause username conflicts. Tests use unique username generation to mitigate this issue.
+The ParaBank application uses a shared test environment, which can cause username conflicts between different test runs. The framework generates unique usernames to reduce this issue, but it may still occur in high-traffic scenarios.
