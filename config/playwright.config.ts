@@ -13,8 +13,8 @@ export default defineConfig({
   workers: process.env.CI ? 1 : 2,
 
   reporter: [
-    ['html', { outputFolder: 'playwright-report', open: 'never' }],
-    ['list']
+    ['list'],
+    ['html', { outputFolder: 'playwright-report', open: 'never' }], 
   ],
 
 
