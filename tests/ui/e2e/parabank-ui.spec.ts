@@ -191,7 +191,7 @@ test.describe('ParaBank E2E Tests', () => {
       // ParaBank demo API might not be fully functional
       try {
         // Get all transactions for this account
-        const allTransactions = await Promise.race([
+        const _allTransactions = await Promise.race([
           transactionsApi.getAllTransactions(storedAccountNumber!),
           new Promise<never>((_, reject) =>
             setTimeout(() => reject(new Error('API call timeout')), 5000)

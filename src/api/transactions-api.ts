@@ -263,7 +263,7 @@ export class TransactionsApi extends BaseApi {
       if (response.status() === 200) {
         this.validateJsonResponse(response);
         // This API returns transactions array directly, not wrapped in an object
-        const transactions = await this.parseJson<any[]>(response);
+        const transactions = await this.parseJson<Transaction[]>(response);
         return { transactions, transaction: transactions };
       }
 

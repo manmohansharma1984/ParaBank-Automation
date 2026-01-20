@@ -35,7 +35,7 @@ class TestDataStore {
     try {
       if (fs.existsSync(this.dataFilePath)) {
         const fileContent = fs.readFileSync(this.dataFilePath, 'utf-8');
-        this.data = JSON.parse(fileContent);
+        this.data = JSON.parse(fileContent) as TestData;
       }
     } catch (error) {
       console.warn('Failed to load test data:', error);

@@ -109,7 +109,7 @@ export class RegistrationPage extends BasePage {
   /**
    * Verifies that user registration was successful and user is logged in.
    */
-  async verifyUserLoggedInAfterRegistration(userData: { firstName: string; username: string }): Promise<void> {
+  async verifyUserLoggedInAfterRegistration(_userData: { firstName: string; username: string }): Promise<void> {
     // Verify welcome message is displayed
     const welcomeMessage = this.page.locator('h1.title, .title').filter({ hasText: 'Welcome' });
     await welcomeMessage.waitFor({ state: 'visible' });
