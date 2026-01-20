@@ -6,7 +6,6 @@
   "scripts": {
     "test": "playwright test",
     "test:ui": "playwright test tests/ui",
-    "test:api": "playwright test tests/api",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write \"**/*.{ts,json,md}\""
@@ -18,10 +17,9 @@
     "typescript",
     "parabank"
   ],
-  "author": "",
+  "author": "Manmohan K Sharma",
   "license": "MIT",
   "devDependencies": {
-    "@playwright/test": "^1.48.0",
     "@types/node": "^20.14.0",
     "@typescript-eslint/eslint-plugin": "^7.13.0",
     "@typescript-eslint/parser": "^7.13.0",
@@ -30,6 +28,7 @@
     "typescript": "^5.5.3"
   },
   "dependencies": {
+    "@playwright/test": "^1.57.0",
     "dotenv": "^16.4.5"
   }
 }

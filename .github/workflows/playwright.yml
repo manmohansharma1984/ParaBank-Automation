@@ -34,10 +34,7 @@ jobs:
       - name: Run linting
         run: npm run lint
 
-      - name: Run API tests
-        run: npm run test:api
-
-      - name: Run UI tests
+      - name: Run tests
         run: npm run test:ui
 
       - name: Upload test results

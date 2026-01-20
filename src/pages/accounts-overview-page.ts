@@ -4,8 +4,7 @@ import { BasePage } from './base-page';
 /**
  * Accounts Overview page for viewing account details and balances.
  *
- * Design decision: Dedicated page object for account overview functionality,
- * enabling verification of account creation and balance information.
+ * Page object for viewing account balances and details
  */
 export class AccountsOverviewPage extends BasePage {
   private readonly accountTable: Locator;
@@ -33,11 +32,43 @@ export class AccountsOverviewPage extends BasePage {
   }
 
   /**
-   * Verifies balance information is displayed (presence of currency symbols).
+   * Verifies balance information is displayed in the accounts table.
    */
   async verifyBalanceInformationDisplayed(): Promise<void> {
-    const balanceText = this.page.locator('text=/\\$|\\$0\\.00|Balance/');
-    await balanceText.first().waitFor({ state: 'visible' });
+    await this.accountTable.waitFor({ state: 'visible' });
+
+    const balanceCells = this.page.locator('table td').filter({ hasText: /\$/ });
+    await balanceCells.first().waitFor({ state: 'visible' });
+  }
+
+   /**
+    * Returns parsed balance and available amount for a given account row.
+    * This is used to validate that the overview shows numeric balance details.
+    */
+  async getAccountBalanceDetails(accountId: string): Promise<{ balance: number; available: number }> {
+    const row = this.page
+      .locator('tr', { has: this.page.locator('a[href*="activity"]', { hasText: accountId }) })
+      .first();
+
+    await row.waitFor({ state: 'visible' });
+
+    const cells = row.locator('td');
+    const balanceText = (await cells.nth(1).textContent())?.trim() ?? '';
+    const availableText = (await cells.nth(2).textContent())?.trim() ?? '';
+
+    const parseAmount = (text: string): number => {
+      const cleaned = text.replace(/[^0-9.-]/g, '');
+      const value = parseFloat(cleaned);
+      if (Number.isNaN(value)) {
+        throw new Error(`Failed to parse balance amount from "${text}"`);
+      }
+      return value;
+    };
+
+    return {
+      balance: parseAmount(balanceText),
+      available: parseAmount(availableText),
+    };
   }
 
   /**

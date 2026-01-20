@@ -4,7 +4,7 @@ import { BasePage } from './base-page';
 /**
  * Home/Dashboard page for logged-in users.
  *
- * Design decision: Minimal page object focused on post-login verification
+ * Page object for the home page after login
  * and basic navigation validation, following existing Page Object pattern.
  */
 export class HomePage extends BasePage {
@@ -14,22 +14,25 @@ export class HomePage extends BasePage {
   private readonly openAccountLink: Locator;
   private readonly transferFundsLink: Locator;
   private readonly billPayLink: Locator;
+  private readonly logoutLink: Locator;
 
   constructor(page: Page) {
     super(page);
     this.navigationMenu = page.locator('a[href*="openaccount"], a[href*="overview"], a[href*="transfer"]');
-    this.welcomeMessage = page.locator('h1.title, .title').filter({ hasText: 'Welcome' });
+    // ParaBank shows "Welcome <name>" sometimes as a paragraph, sometimes as a title element.
+    this.welcomeMessage = page.locator('p:has-text("Welcome"), h1.title:has-text("Welcome"), .title:has-text("Welcome")');
     this.accountsOverviewLink = page.locator('a[href*="overview"]');
     this.openAccountLink = page.locator('a[href*="openaccount"]');
     this.transferFundsLink = page.locator('a[href*="transfer"]');
     this.billPayLink = page.locator('a[href*="billpay"]');
+    this.logoutLink = page.locator('a:has-text("Log Out"), a[href*="logout"]');
   }
 
   /**
    * Verifies user is successfully logged in and on home page.
    */
   async verifyLoggedInUser(): Promise<void> {
-    await this.welcomeMessage.waitFor({ state: 'visible' });
+    await this.welcomeMessage.first().waitFor({ state: 'visible' });
   }
 
   /**
@@ -44,7 +47,6 @@ export class HomePage extends BasePage {
    */
   async navigateToAccountsOverview(): Promise<void> {
     await this.accountsOverviewLink.click();
-    await this.page.waitForLoadState('networkidle');
   }
 
   /**
@@ -60,7 +62,6 @@ export class HomePage extends BasePage {
    */
   async navigateToTransferFunds(): Promise<void> {
     await this.transferFundsLink.click();
-    await this.page.waitForLoadState('networkidle');
   }
 
   /**
@@ -68,6 +69,11 @@ export class HomePage extends BasePage {
    */
   async navigateToBillPay(): Promise<void> {
     await this.billPayLink.click();
+  }
+
+  async logout(): Promise<void> {
+    await this.logoutLink.first().waitFor({ state: 'visible' });
+    await this.logoutLink.first().click();
     await this.page.waitForLoadState('networkidle');
   }
 }

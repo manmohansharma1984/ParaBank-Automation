@@ -3,8 +3,7 @@ import { Page, Locator } from '@playwright/test';
 /**
  * Base page object class providing common Playwright interactions.
  *
- * Design decision: Centralize element waiting and interaction logic to ensure
- * consistent behavior across all page objects and reduce duplication.
+ * Base page class with common element waiting and interaction logic
  */
 export abstract class BasePage {
   protected readonly page: Page;

@@ -3,7 +3,7 @@ import 'dotenv/config';
 /**
  * Environment configuration for ParaBank test automation.
  *
- * Design decision: Centralized environment configuration to support
+ * Centralized environment configuration to support
  * multiple test environments (dev, staging, prod) and easy switching.
  * Uses dotenv for .env file support.
  */

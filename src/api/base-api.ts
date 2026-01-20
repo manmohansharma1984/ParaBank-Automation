@@ -1,20 +1,14 @@
 /**
  * Base API Class
  *
- * This is the foundation for all API test classes.
- * It provides common API functionality shared across all API tests.
- *
- * Design Decision: Centralized API base class ensures consistent
- * request handling, error management, and response parsing.
+ * Base class for API test classes
+ * Provides common HTTP request functionality
  */
 
 import { APIRequestContext, APIResponse } from '@playwright/test';
 
 /**
- * Base API class providing common HTTP request functionality.
- *
- * Design decision: Abstract API interactions to enable consistent error handling,
- * request/response logging, and easier testing of different API endpoints.
+ * Base class for API interactions with consistent error handling
  */
 export abstract class BaseApi {
   protected request: APIRequestContext;
@@ -22,7 +16,7 @@ export abstract class BaseApi {
 
   constructor(request: APIRequestContext, baseUrl?: string) {
     this.request = request;
-    // Design decision: Use configured API base URL for environment flexibility
+    // Use configured API base URL for different environments
     this.baseUrl = baseUrl || 'https://parabank.parasoft.com/parabank/services/bank';
   }
 

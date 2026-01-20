@@ -4,7 +4,7 @@ import { BasePage } from './base-page';
 /**
  * Open New Account page for creating additional bank accounts.
  *
- * Design decision: Focused page object for account creation functionality,
+ * Page object for opening new bank accounts
  * following existing Page Object pattern for ParaBank operations.
  */
 export class OpenAccountPage extends BasePage {

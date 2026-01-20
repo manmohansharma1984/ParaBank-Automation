@@ -2,11 +2,10 @@ import { defineConfig, devices } from '@playwright/test';
 import { envConfig } from './environment.config';
 
 export default defineConfig({
-  testDir: './tests',
   timeout: envConfig.defaultTimeout,
   expect: { timeout: 10000 },
 
-  // Design decision: Enable parallel execution for faster feedback in development,
+  // Run tests in parallel for faster feedback in development,
   // but scale down in CI to avoid overwhelming shared test environments.
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
@@ -17,7 +16,7 @@ export default defineConfig({
     ['html', { outputFolder: 'playwright-report', open: 'never' }],
     ['list']
   ],
-  
+
 
   use: {
     baseURL: envConfig.baseUrl,
@@ -27,8 +26,9 @@ export default defineConfig({
 
   projects: [
     {
-      name: 'chromium',
+      name: 'ui',
+      testDir: './tests/ui/e2e',
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-});
+})

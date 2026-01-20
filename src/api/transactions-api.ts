@@ -1,13 +1,8 @@
 /**
  * Transactions API Class
  *
- * This class handles all API interactions related to transactions in ParaBank.
- * It provides methods for searching and retrieving transaction information.
- *
- * Design Decision: Separate API class from UI tests allows for:
- * - Faster test execution
- * - Independent verification of API endpoints
- * - Testing backend logic without UI dependencies
+ * Handles API calls for transaction data in ParaBank
+ * Keeps API logic separate from UI tests for better organization
  */
 
 import { APIRequestContext, APIResponse } from '@playwright/test';
@@ -63,9 +58,9 @@ export class TransactionsApi extends BaseApi {
   /**
    * Finds transactions based on search criteria
    *
-   * ParaBank API endpoint: /findtrans
-   * This endpoint supports various search criteria including amount-based search
-   * Note: ParaBank API might require authentication or use different endpoint structure
+   * Uses ParaBank's /findtrans endpoint
+   * Supports different search criteria like amount, date ranges, etc.
+   * Might need authentication in some setups
    *
    * @param params - Transaction search parameters
    * @returns API response
@@ -124,8 +119,8 @@ export class TransactionsApi extends BaseApi {
 
     const response = await this.findTransactions(params);
 
-    // ParaBank API might return 404 if endpoint doesn't exist or requires authentication
-    // Handle both 200 and 404 responses
+    // Handle case where API returns 404 (endpoint not found or needs auth)
+    // Return empty results in that case
     if (response.status() === 404) {
       // Return empty response for 404 (API endpoint might not be available)
       return { transactions: [], transaction: [] };
@@ -212,10 +207,10 @@ export class TransactionsApi extends BaseApi {
   }
 
   /**
-   * Finds transactions with authentication
+   * Search transactions with authentication
    *
-   * ParaBank API may require authentication via cookies/session
-   * This method handles authenticated requests
+   * Some ParaBank setups might need session cookies
+   * This method includes auth headers if needed
    *
    * @param params - Transaction search parameters
    * @param sessionCookie - Session cookie for authentication (optional)
@@ -245,5 +240,37 @@ export class TransactionsApi extends BaseApi {
 
     const response = await this.request.get(this.getUrl(endpoint), { headers });
     return response;
+  }
+
+  /**
+   * Get transactions directly from the accounts endpoint
+   * Found this to be more reliable than the search endpoint on the demo site
+   */
+  async getAccountTransactions(accountId: string): Promise<FindTransactionsResponse> {
+    const endpoint = `/accounts/${accountId}/transactions`;
+
+    try {
+      const response = await this.request.get(this.getUrl(endpoint), {
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
+      if (response.status() === 404) {
+        return { transactions: [], transaction: [] };
+      }
+
+      if (response.status() === 200) {
+        this.validateJsonResponse(response);
+        // This API returns transactions array directly, not wrapped in an object
+        const transactions = await this.parseJson<any[]>(response);
+        return { transactions, transaction: transactions };
+      }
+
+      return { transactions: [], transaction: [] };
+    } catch (error) {
+      // API call failed - return empty result
+      return { transactions: [], transaction: [] };
+    }
   }
 }

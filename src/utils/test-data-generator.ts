@@ -1,5 +1,5 @@
 // Generate random 5-digit number for unique usernames
-// Design decision: Random generation instead of sequential counters to avoid
+// Use random generation instead of sequential counters to avoid
 // collisions in shared test environments and support parallel test execution.
 function generateRandom5Digit(): number {
   return Math.floor(10000 + Math.random() * 90000); // 10000-99999
@@ -8,7 +8,7 @@ function generateRandom5Digit(): number {
 /**
  * Generates test user registration data with unique usernames.
  *
- * Design decision: Fixed data for most fields since ParaBank validates them,
+ * Use fixed data for most fields since ParaBank validates them,
  * but randomized usernames to avoid collisions in shared environments.
  */
 export function generateUserRegistrationData(): {
@@ -58,7 +58,7 @@ export function generateBillPaymentData(): {
 } {
   return {
     payeeName: `Payee_${Math.floor(Math.random() * 1000)}`,
-    address: `${Math.floor(Math.random() * 9999)} Payment Street`,
+    address: `${Math.floor(Math.random() * 9999)} Hawa Mahal Road`,
     city: 'Jaipur',
     state: 'Rajasthan',
     zipCode: '302017',

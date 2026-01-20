@@ -4,7 +4,7 @@ import { BasePage } from './base-page';
 /**
  * Registration page object for ParaBank user creation.
  *
- * Design decision: Separate registration logic from test steps to enable
+ * Handles user registration separately from the test flow
  * reuse across different test scenarios and maintain clear separation of concerns.
  */
 export class RegistrationPage extends BasePage {

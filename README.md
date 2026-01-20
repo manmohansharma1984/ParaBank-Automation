@@ -1,13 +1,12 @@
 # ParaBank Test Automation
 
-Test automation framework for the ParaBank application using Playwright and TypeScript. Includes both UI and API test coverage.
+Automated tests for the ParaBank demo app. Covers user registration, account management, bill payments, and transaction validation.
 
 ## Quick Start
 
 ```bash
 npm install
 npx playwright install chromium
-npm run test:api  # Run API tests
 npm run test:ui   # Run UI tests
 npm run test      # Run all tests
 ```
@@ -22,11 +21,10 @@ npm run test      # Run all tests
 ├── docs/
 │   └── jenkins-integration.md     # Jenkins CI/CD documentation
 ├── src/
-│   ├── api/                       # API testing classes
+│   ├── api/                       # API test helpers and requests
 │   ├── pages/                     # Page Object Model classes
 │   └── utils/                     # Test data generation utilities
 ├── tests/
-│   ├── api/                       # API test specifications
 │   └── ui/e2e/                    # UI end-to-end tests
 ├── Jenkinsfile                    # Jenkins pipeline configuration
 ├── package.json                   # Project dependencies and scripts
@@ -43,19 +41,14 @@ npm run test      # Run all tests
 - Opening new savings accounts
 - Transferring funds between accounts
 - Bill payment processing
-
-### API Tests
-- Transaction search by amount
-- Transaction response validation
-- Empty result handling
-- Error response handling
-- JSON schema validation
+- Transaction search and validation via API
 
 ## CI/CD Integration
 
 ### GitHub Actions
 - Runs automatically on pushes and pull requests to main/develop branches
 - Can be triggered manually through the GitHub UI
+- Runs linting and UI tests with API validation integrated
 - Uploads test reports and artifacts for review
 
 ### Jenkins
