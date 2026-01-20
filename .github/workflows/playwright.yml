@@ -41,7 +41,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report
+          name: playwright-html-report
           path: playwright-report/
 
       - name: Upload Playwright test results
@@ -50,9 +50,4 @@ jobs:
         with:
           name: test-results
           path: test-results/
-
-      - name: Serve Playwright HTML report
-        if: always()
-        uses: gabrielfs7/playwright-html-report-action@v1
-        with:
-          path: playwright-report
+          
